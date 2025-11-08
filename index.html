@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+
+  <link rel="icon" href="img/logo.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon">
+
+  <title>Berserk store</title>
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header__logo">
+        <a href="#">
+          <img src="./img/logo .png" alt="logo-berserk-store">
+        </a>
+      </div>
+      <div class="header__error-msg">
+        <h1>Добро пожаловать в наш магазин!</h1>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <section class="">
+
+        <div class="cards">
+        </div>
+
+      </section>
+      <aside role="complementary" aria-label="Корзина" class="cart">
+        <div class="cart__header">
+          <h2>Корзина:</h2>
+        </div>
+        <div class="divider"></div>
+        <div class="cart__items">
+          <div class="cart__empty hidden">
+            <h3>Корзина пуста</h3>
+          </div>
+          <div class="cart__item" data-product-id="1">
+            <div class="cart__item-name">
+              <h3>DJI Mavic 3</h3>
+            </div>
+            <div class="cart__item-price">
+              <p>400 000</p>
+            </div>
+            <div class="cart__item-count">
+              <button class="custom__btn cart__item-btn">-</button>
+              <input class="card__item-count--numb" type="number" min="1" max="999" step="1">
+              <button class="custom__btn cart__item-btn">+</button>
+            </div>
+            <div class="cart__item-total">
+              <span>4</span>
+            </div>
+            <button class="custom__btn item__btn--delete">Удалить</button>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="cart__total">
+          <div class="cart__total--postn">Количество позиций:<span>4</span></div>
+          <div class="cart__total--units">Общее количество единиц:<span>3</span></div>
+          <div class="cart__total--price">Итого:<span>2000</span></div>
+        </div>
+        <div class="cart__empty">
+          <button class="custom__btn cart__empty-btn">Очистить корзину</button>
+        </div>
+      </aside>
+    </div>
+  </main>
+  <script type="module" src="./js/main.js"></script>
+</body>
+
+</html>
