@@ -1,5 +1,8 @@
 'use strict';
 
+// import { ERROR_SERVER } from '../constants';
+// import { showErrorMessage } from './utils';
+
 let productsData = [];
 
 const getProducts = async (renderPage) => {
@@ -12,9 +15,8 @@ const getProducts = async (renderPage) => {
 			productsData = await res.json();
 		}
 		renderPage(productsData);
-		console.log(productsData);
 	} catch (err) {
-		showErrorMessage(ERROR_SERVER);
+		console.log(err);
 	}
 };
 
