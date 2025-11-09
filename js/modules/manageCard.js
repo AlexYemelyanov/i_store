@@ -1,27 +1,39 @@
 'use strict';
 
-const manageCard = (observe) => {
+const manageCard = (
+	observe,
+	addToLocalStorage,
+	getCartItems,
+	renderCart,
+	manageCartItem,
+	showAddToCartAlert
+) => {
 	observe('.card', (cardElement) => {
 		cardElement.forEach((card) => {
 			const count = card.querySelector('.card__count');
 			const totalPrice = card.querySelector('.card__total span');
+			const totalData = card.querySelector('.card__total');
 			const countNum = card.querySelector('.card__count--numb');
 			const decrease = card.querySelector('.decrease');
 			const increase = card.querySelector('.increase');
-			const price = card.querySelector('.card__price p');
+			const price = card.querySelector('.card__price');
 
 			if (countNum.value == 1) {
 				decrease.disabled = true;
 			}
 
+			const currencyFormatter = new Intl.NumberFormat('ru-RU', {
+				style: 'currency',
+				currency: 'BYN',
+			});
+
 			const updateTotal = () => {
-				const constPrice = parseFloat(price.textContent);
+				const constPrice = parseInt(price.dataset.price);
 				const quantity = parseInt(countNum.value) || 1;
 				const total = constPrice * quantity;
-				totalPrice.textContent = total.toFixed(1);
-				card.dataset.currentQuantity = quantity;
-				card.dataset.totalPrice = total;
-				console.log(card.dataset.currentQuantity, card.dataset.totalPrice);
+				totalPrice.textContent = currencyFormatter.format(total);
+				countNum.dataset.currentQuantity = quantity;
+				totalData.dataset.totalPrice = total;
 			};
 			count.addEventListener('click', (e) => {
 				if (e.target.closest('.increase')) {
@@ -39,9 +51,14 @@ const manageCard = (observe) => {
 				updateTotal();
 			});
 			count.addEventListener('change', (e) => {
-				if (typeof countNum.value != number) {
+				let newValue = parseInt(countNum.value);
+				if (isNaN(newValue) || newValue < 1) {
 					countNum.value = 1;
 				}
+				if (newValue > 999) {
+					countNum.value = 999;
+				}
+
 				countNum.value = e.target.value;
 				if (countNum.value > 1) {
 					decrease.disabled = false;
@@ -50,7 +67,18 @@ const manageCard = (observe) => {
 				}
 				updateTotal();
 			});
-			card.addEventListener('click', (e) => {});
+			card.addEventListener('click', (e) => {
+				if (e.target.classList.contains('card__btn--to-cart')) {
+					addToLocalStorage(card);
+					getCartItems(renderCart);
+					manageCartItem(
+						observe,
+						renderCart,
+						addToLocalStorage,
+						showAddToCartAlert
+					);
+				}
+			});
 		});
 	});
 };

@@ -10,17 +10,21 @@ const renderPage = (data) => {
 		showErrorMessage(NO_PRODUCTS_IN_THIS_CATEGORY);
 		return;
 	}
-	console.log(cards);
 	renderCard(data);
 };
+
+const currencyFormatter = new Intl.NumberFormat('ru-RU', {
+	style: 'currency',
+	currency: 'BYN',
+});
 
 function renderCard(data) {
 	data.forEach((card) => {
 		const { id, title, img, description, price } = card;
-
+		const formattedPrice = currencyFormatter.format(price);
 		const cardItem = `
 					<div class = "card"
-					data-product = "${id}" >
+					data-product-id = "${id}" >
 						<a href = "#">
 						<img src = ${img}	alt = "${title}" class = "card__img">
 						</a> 
@@ -31,7 +35,7 @@ function renderCard(data) {
 						<p> ${description} </p> 
 						</div>
 						<div class = "card__price" data-price = "${price}">
-						<p> ${price} </p> 
+						<p> ${formattedPrice} </p> 
 						</div>
 						<div class = "card__count">
 						<button class = "custom__btn card__btn decrease"> - </button> 
@@ -45,7 +49,7 @@ function renderCard(data) {
 					>
 						<button class = "custom__btn card__btn increase"> + </button> 
 						</div>
-						<div class = "card__total" data-total-price = "${price}"> Итого: <span> ${price} </span></div >
+						<div class = "card__total" data-total-price = "${price}"> Итого: <span> ${formattedPrice} </span></div >
 						<button class = "custom__btn card__btn--to-cart"> В корзину </button> 
 						</div>
 
